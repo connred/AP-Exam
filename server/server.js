@@ -8,7 +8,7 @@ var jwkToPem = require('jwk-to-pem');
 var bodyParser = require('body-parser'); 
 var bodyParser = require('body-parser'); 
 var keyCache = {};
-const MONGO_URL = 'mongodb://localhost:27017/NCMongo';
+//const MONGO_URL = 'mongodb://localhost:27017/NCMongo';
 const CLIENT_ID = '100486091355-kggb1no0knblhq4oi7c8iov1kfnj7aut.apps.googleusercontent.com';
 var http = require('http').Server(app);
 var webroot = __dirname + '/../client/';
@@ -55,6 +55,7 @@ app.use('/', express.static(webroot));
         });
     };
 });*/
+/*
 function allowCrossDomain(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE');
@@ -68,7 +69,7 @@ function allowCrossDomain(req, res, next) {
         next();
     }
 }
-
+*/
 var server = http.listen(80, function() {
     console.log('hosting from ' + webroot);
     console.log('server listening on http://localhost/');
