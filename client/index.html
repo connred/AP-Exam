@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Node Chat</title>
+    <link rel="stylesheet" href="main.css"> </head>
+
+<body>
+    <div id="content">
+        <h1>NC</h1>
+        <div id="password"> <span id="span1">Password:</span>
+            <input type="password" id="pass-input">
+            <button id="pass-enter">Enter</button>
+        </div>
+        <br>
+        <div id="user" hidden> <span id="span2">Enter Name:</span>
+            <div class="g-signin2" data-onsuccess="onSignIn" hidden></div> <a href="#" onclick="signOut();">Sign out</a> <a href="#" onclick="disconnect();">Disconnect</a> </div>
+        <br>
+        <div id="log" hidden>
+            <div class="messsage"></div>
+        </div>
+        <br>
+        <div id="controls">
+            <input id="message" disabled>
+            <br>
+            <button id="send" disabled>Send</button>
+            <button id="show-button" hidden>Use Notifications</button>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

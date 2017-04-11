@@ -1,0 +1,22 @@
+#content {
+    margin: auto;
+    width: 75%;
+}
+
+#log {
+    border: solid black 1px;
+    margin: auto;
+}
+
+#controls {
+    display: none;
+}
+html {
+    background-color: powderblue;
+}
+h1 {
+    font-family: impact;
+    font-size: 36px;
+    text-shadow: 6px 2px 5px #333333;
+    text-align: center
+}
