@@ -13,7 +13,7 @@ const CLIENT_ID = '100486091355-kggb1no0knblhq4oi7c8iov1kfnj7aut.apps.googleuser
 var http = require('http').Server(app);
 var webroot = __dirname + '/../client/';
 app.use('/', express.static(webroot));
-Mongo.connect(MONGO_URL, function (err, db) {
+/*Mongo.connect(MONGO_URL, function (err, db) {
     // TODO: handle err
     if (err) log('error?');
     else log('good to go');
@@ -54,7 +54,7 @@ Mongo.connect(MONGO_URL, function (err, db) {
             if (callback) callback(err, result);
         });
     };
-});
+});*/
 function allowCrossDomain(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE');
