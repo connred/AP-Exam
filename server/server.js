@@ -69,7 +69,7 @@ function allowCrossDomain(req, res, next) {
     }
 }
 
-var server = http.listen(80, function() {
+var server = http.listen(3000, function() {
     console.log('hosting from ' + webroot);
     console.log('server listening on http://localhost/');
 });
