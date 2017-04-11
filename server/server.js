@@ -70,6 +70,47 @@ function allowCrossDomain(req, res, next) {
     }
 }
 */
+//
+function authorize(req, res, next) {
+    // jwt.decode: https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken--options
+    // jwt.verify: https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
+    try {
+        var token = req.headers.authorization;
+        var decoded = jwt.decode(token, {
+            complete: true
+        });
+        var keyID = decoded.header.kid;
+        var algorithm = decoded.header.alg;
+        var iss = decoded.payload.iss;
+        var pem = getPem(keyID);
+        if (iss === 'accounts.google.com' || iss === 'https://accounts.google.com') {
+            var options = {
+                audience: CLIENT_ID
+                , issuer: iss
+                , algorithms: [algorithm]
+            }
+            jwt.verify(token, pem, options, function (err) {
+                if (err) {
+                    res.writeHead(401);
+                    res.end();
+                }
+                else {
+                    next();
+                }
+            });
+        }
+        else {
+            res.writeHead(401);
+            res.end();
+        }
+    }
+    catch (err) {
+        res.writeHead(401);
+        res.end();
+    }
+}
+//
+
 var server = http.listen(80, function() {
     console.log('hosting from ' + webroot);
     console.log('server listening on http://localhost/');
