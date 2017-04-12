@@ -2,7 +2,9 @@
 <html>
 
 <head>
+    <meta name="google-signin-client_id" content="100486091355-kggb1no0knblhq4oi7c8iov1kfnj7aut.apps.googleusercontent.com">
     <title>Node Chat</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="main.css"> </head>
 
 <body>
@@ -10,9 +12,9 @@
         <h1>NC</h1>
         <br>
         <div id="user">
-            <div class="g-signin2" data-onsuccess="onSignIn"></div> <a href="#" onclick="signOut">Sign out</a> <a href="#" onclick="disconnect">Disconnect</a> </div>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div> <a href="#" onclick="signOut();">Sign out</a> <a href="#" onclick="disconnect();">Disconnect</a> </div>
         <br>
-        <div id="log" hidden>
+        <div id="rooms" hidden>
             <div class="messsage"></div>
         </div>
         <br>
@@ -29,7 +31,6 @@
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=appStart" async defer></script>
     <script src="main.js"></script>
-    
 </body>
 
 </html>
