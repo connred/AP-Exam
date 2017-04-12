@@ -3,90 +3,6 @@ $(document).ready(function () {
     socket.on('Welcome', function (data) {
         $('#log').append('<div><strong>' + data.text + '</strong></div>');
     });
-    var profile; // google user profile
-    var authResponse; // google user auth response
-    function onSignIn(googleUser) {
-        profile = googleUser.getBasicProfile();
-        authResponse = googleUser.getAuthResponse();
-        var login = {
-            'id': profile.getId()
-            , 'name': profile.getName()
-            , 'givenName': profile.getGivenName()
-            , 'familyName': profile.getFamilyName()
-            , 'imageUrl': profile.getImageUrl()
-            , 'email': profile.getEmail()
-            , 'hostedDomain': googleUser.getHostedDomain()
-        }
-        post('/login', login);
-        $('.g-signin2').hide();
-        /*get('/addrooms', function (data) {
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].id && data[i].text) {
-                    $('#rooms').append('<div><strong><span>' + data[i].text + '</span></strong></div>');
-                }
-            }
-        });*/
-    }
-
-    function signOut() {
-        gapi.auth2.getAuthInstance().signOut();
-        $('.g-signin2').show();
-    }
-
-    function disconnect() {
-        gapi.auth2.getAuthInstance().disconnect();
-        $('.g-signin2').show();
-    }
-
-    function post(url, json, success, error) {
-        $.ajax({
-            url: route(url)
-            , method: 'POST'
-            , data: json
-            , headers: {
-                'Authorization': authResponse.id_token
-            }
-            , success: function () {
-                if (success) success();
-            }
-            , error: function () {
-                if (error) error();
-            }
-        });
-    }
-
-    function get(url, success, error) {
-        $.ajax({
-            url: route(url)
-            , method: 'GET'
-            , headers: {
-                'Authorization': authResponse.id_token
-            }
-            , success: function (data) {
-                if (success) success(data);
-            }
-            , error: function () {
-                if (error) error();
-            }
-        })
-    }
-
-    function put(url, json, success, error) {
-        $.ajax({
-            url: route(url)
-            , method: 'PUT'
-            , data: json
-            , headers: {
-                'Authorization': authResponse.id_token
-            }
-            , success: function (data) {
-                if (success) success(data);
-            }
-            , error: function () {
-                if (error) error();
-            }
-        })
-    }
     var name;
     /*$('#pass-enter').click(function () {
         var password = $('#pass-input');
@@ -159,3 +75,87 @@ $(document).ready(function () {
         }
     });
 });
+var profile; // google user profile
+var authResponse; // google user auth response
+function onSignIn(googleUser) {
+    profile = googleUser.getBasicProfile();
+    authResponse = googleUser.getAuthResponse();
+    var login = {
+        'id': profile.getId()
+        , 'name': profile.getName()
+        , 'givenName': profile.getGivenName()
+        , 'familyName': profile.getFamilyName()
+        , 'imageUrl': profile.getImageUrl()
+        , 'email': profile.getEmail()
+        , 'hostedDomain': googleUser.getHostedDomain()
+    }
+    post('/login', login);
+    $('.g-signin2').hide();
+    /*get('/addrooms', function (data) {
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].id && data[i].text) {
+                $('#rooms').append('<div><strong><span>' + data[i].text + '</span></strong></div>');
+            }
+        }
+    });*/
+}
+
+function signOut() {
+    gapi.auth2.getAuthInstance().signOut();
+    $('.g-signin2').show();
+}
+
+function disconnect() {
+    gapi.auth2.getAuthInstance().disconnect();
+    $('.g-signin2').show();
+}
+
+function post(url, json, success, error) {
+    $.ajax({
+        url: route(url)
+        , method: 'POST'
+        , data: json
+        , headers: {
+            'Authorization': authResponse.id_token
+        }
+        , success: function () {
+            if (success) success();
+        }
+        , error: function () {
+            if (error) error();
+        }
+    });
+}
+
+function get(url, success, error) {
+    $.ajax({
+        url: route(url)
+        , method: 'GET'
+        , headers: {
+            'Authorization': authResponse.id_token
+        }
+        , success: function (data) {
+            if (success) success(data);
+        }
+        , error: function () {
+            if (error) error();
+        }
+    })
+}
+
+function put(url, json, success, error) {
+    $.ajax({
+        url: route(url)
+        , method: 'PUT'
+        , data: json
+        , headers: {
+            'Authorization': authResponse.id_token
+        }
+        , success: function (data) {
+            if (success) success(data);
+        }
+        , error: function () {
+            if (error) error();
+        }
+    })
+}

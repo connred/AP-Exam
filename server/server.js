@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var bodyParser = require('body-parser'); 
 var keyCache = {};
 //const MONGO_URL = 'mongodb://localhost:27017/NCMongo';
-const CLIENT_ID = '100486091355-kggb1no0knblhq4oi7c8iov1kfnj7aut.apps.googleusercontent.com';
+const CLIENT_ID = '100486091355-flibl0f1jtafr4hahh9pueomqgb2533o.apps.googleusercontent.com';
 var http = require('http').Server(app);
 var webroot = __dirname + '/../client/';
 app.use('/', express.static(webroot));
