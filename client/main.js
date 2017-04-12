@@ -88,7 +88,7 @@ $(document).ready(function () {
         })
     }
     var name;
-    $('#pass-enter').click(function () {
+    /*$('#pass-enter').click(function () {
         var password = $('#pass-input');
         var realpassword = 'apcs';
         var pwd = password.val().trim();
@@ -102,8 +102,8 @@ $(document).ready(function () {
         else {
             alert('Incorrect Password');
         }
-    });
-    $('#user-save').click(function () {
+    });*/
+    /*$('#user-save').click(function () {
         var username = $('#user-name');
         var txt = username.val().trim();
         console.log(txt);
@@ -119,7 +119,7 @@ $(document).ready(function () {
             $('#send').prop('disabled', false);
             socket.emit('user', name);
         }
-    });
+    });*/
     $('#send').click(function () {
         var input = $('#message');
         var text = input.val().trim();
