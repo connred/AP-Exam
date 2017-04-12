@@ -73,9 +73,29 @@ function authorize(req, res, next) {
 //
 
 var server = http.listen(80, function() {
+    cacheWellKnownKeys();
     console.log('hosting from ' + webroot);
     console.log('server listening on http://localhost/');
 });
+function cacheWellKnownKeys() {
+    // get the well known config from google
+    request('https://accounts.google.com/.well-known/openid-configuration', function (err, res, body) {
+        var config = JSON.parse(body);
+        var address = config.jwks_uri; // ex: https://www.googleapis.com/oauth2/v3/certs
+        // get the public json web keys
+        request(address, function (err, res, body) {
+            keyCache.keys = JSON.parse(body).keys;
+            // example cache-control header: 
+            // public, max-age=24497, must-revalidate, no-transform
+            var cacheControl = res.headers['cache-control'];
+            var values = cacheControl.split(',');
+            var maxAge = parseInt(values[1].split('=')[1]);
+            // update the key cache when the max age expires
+            setTimeout(cacheWellKnownKeys, maxAge * 1000);
+            //log('Cached keys = ', keyCache.keys);
+        });
+    });
+}
 ////////////////////////////////////////
 /*Mongo.connect(MONGO_URL, function (err, db) {
     // TODO: handle err
