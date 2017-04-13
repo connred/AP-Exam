@@ -75,22 +75,36 @@ $(document).ready(function () {
         }
     });
 });
+
+function route(url) {
+    return 'http://130.211.216.160:3000' + url
+}
 var profile; // google user profile
 var authResponse; // google user auth response
 function onSignIn(googleUser) {
     profile = googleUser.getBasicProfile();
     authResponse = googleUser.getAuthResponse();
     var login = {
-        'id': profile.getId()
-        , 'name': profile.getName()
-        , 'givenName': profile.getGivenName()
-        , 'familyName': profile.getFamilyName()
-        , 'imageUrl': profile.getImageUrl()
-        , 'email': profile.getEmail()
-        , 'hostedDomain': googleUser.getHostedDomain()
-    }
-    post('/login', login);
+            'id': profile.getId()
+            , 'name': profile.getName()
+            , 'givenName': profile.getGivenName()
+            , 'familyName': profile.getFamilyName()
+            , 'imageUrl': profile.getImageUrl()
+            , 'email': profile.getEmail()
+            , 'hostedDomain': googleUser.getHostedDomain()
+        }
+        //post('/login', login);
     $('.g-signin2').hide();
+    var txt = login.name;
+    console.log(txt);
+    if (txt.length > 0) {
+        name = txt;
+        $('#controls').show();
+        $('#log').prop('hidden', false);
+        $('#message').prop('disabled', false);
+        $('#send').prop('disabled', false);
+        socket.emit('user', name);
+    }
     /*get('/addrooms', function (data) {
         for (var i = 0; i < data.length; i++) {
             if (data[i].id && data[i].text) {
