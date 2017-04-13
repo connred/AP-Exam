@@ -75,7 +75,7 @@ $(document).ready(function () {
         }
     });
 });
-
+var socket = io.connect();
 function route(url) {
     return 'http://130.211.216.160:3000' + url
 }
