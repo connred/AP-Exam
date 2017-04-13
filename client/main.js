@@ -23,6 +23,7 @@ function onSignIn(googleUser) {
         }
         //post('/login', login);
     $('.g-signin2').hide();
+    $('.signout').prop('hidden', false);
     var txt = login.name;
     console.log(txt + '//client side log');
     if (txt.length > 0) {
@@ -43,10 +44,14 @@ function onSignIn(googleUser) {
 }
 function signOut() {
     gapi.auth2.getAuthInstance().signOut();
+    socket.emit('disconnect');
+    $('#log').prop('hidden', true);
     $('.g-signin2').show();
 }
 function disconnect() {
     gapi.auth2.getAuthInstance().disconnect();
+    socket.emit('disconnect');
+    $('#log').prop('hidden', true);
     $('.g-signin2').show();
 }
 ///
