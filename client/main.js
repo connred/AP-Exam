@@ -6,6 +6,7 @@ function route(url) {
     return 'http://130.211.216.160:3000' + url
 }
 ///
+var username;
 var profile; // google user profile
 var authResponse; // google user auth response
 function onSignIn(googleUser) {
@@ -23,7 +24,6 @@ function onSignIn(googleUser) {
         //post('/login', login);
     $('.g-signin2').hide();
     var txt = login.name;
-    var username;
     console.log(txt);
     if (txt.length > 0) {
         username = txt;
