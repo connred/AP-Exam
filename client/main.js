@@ -7,7 +7,7 @@ $(document).ready(function () {
         }
         input.val('');
     });
-    socket.on('croom', function (text) {
+    socket.on('croom', function (data) {
         $('#roomlist').append('<div><strong>' + data.room + '</strong></div>');
         console.log('Room created', text.room);
     });
