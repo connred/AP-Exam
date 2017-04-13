@@ -12,17 +12,16 @@
         <h1>NC</h1>
         <br>
         <div id="user">
-            <div class="g-signin2" data-onsuccess="onSignIn"></div> <a class="signout" href="#" onclick="signOut();" hidden>Sign out</a> <a class="signout" href="#" onclick="disconnect();" hidden>Disconnect</a> </div>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div> <a class="signout" href="#" onclick="signOut();" hidden>Sign out</a> <a class="signout" href="#" onclick="disconnect();" hidden>Disconnect</a> 
+        </div>
         <br>
         <div id="rooms" hidden>
-            <div class="messsage"></div>
+            <div id="roomlist"></div>
         </div>
         <br>
         <div id="controls">
-            <input id="message" disabled>
-            <br>
-            <button id="send" disabled>Send</button>
-            <button id="show-button" hidden>Use Notifications</button>
+            <button id="croom">Create Room</button>
+            <input id="roomname">
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

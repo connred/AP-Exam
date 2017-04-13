@@ -1,7 +1,24 @@
 $(document).ready(function () {
-    
+    $('#croom').click(function () {
+        var input = $('#roomname');
+        var text = input.val().trim();
+        if (text.length > 0) {
+            socket.emit('croom', text);
+        }
+        input.val('');
+    });
+    socket.on('croom', function (text) {
+        $('#roomlist').append('<div><strong>' + text.room + '</strong></div>');
+        console.log('Room created', text.room);
+    });
+    $("#roomname").keyup(function (event) {
+        if (event.keyCode == 13) {
+            $("#croom").click();
+        }
+    });
 });
 var socket = io.connect();
+
 function route(url) {
     return 'http://130.211.216.160:3000' + url
 }
@@ -42,23 +59,21 @@ function onSignIn(googleUser) {
         }
     });*/
 }
+
 function signOut() {
     gapi.auth2.getAuthInstance().signOut();
     socket.emit('disconnect');
-    $('#log').prop('hidden', true);
+    $('.signout').prop('hidden', true);
     $('.g-signin2').show();
 }
+
 function disconnect() {
     gapi.auth2.getAuthInstance().disconnect();
     socket.emit('disconnect');
-    $('#log').prop('hidden', true);
+    $('.signout').prop('hidden', true);
     $('.g-signin2').show();
 }
 ///
-
-
-
-
 /////
 function post(url, json, success, error) {
     $.ajax({

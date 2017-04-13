@@ -181,10 +181,10 @@ io.sockets.on('connection', function (socket) {
             socket.broadcast.emit('otherUserDisconnect', socket.user);
         }
     });
-    socket.on('message', function (data) {
-        io.sockets.emit('message', {
-            user: socket.user
-            , message: data
+    socket.on('croom', function (text) {
+        //add mongo funciton for the GET
+        io.sockets.emit('croom', {
+            room: socket.text
         })
     });
     //
