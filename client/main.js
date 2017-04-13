@@ -31,7 +31,7 @@ function onSignIn(googleUser) {
         $('#log').prop('hidden', false);
         $('#message').prop('disabled', false);
         $('#send').prop('disabled', false);
-        socket.emit('user', name);
+        socket.emit('user', username);
     }
     /*get('/addrooms', function (data) {
         for (var i = 0; i < data.length; i++) {
