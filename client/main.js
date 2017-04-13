@@ -8,7 +8,7 @@ $(document).ready(function () {
         input.val('');
     });
     socket.on('croom', function (text) {
-        $('#roomlist').append('<div><strong>' + text.room + '</strong></div>');
+        $('#roomlist').append('<div><strong>' + data.room + '</strong></div>');
         console.log('Room created', text.room);
     });
     $("#roomname").keyup(function (event) {
