@@ -24,7 +24,7 @@ function onSignIn(googleUser) {
         //post('/login', login);
     $('.g-signin2').hide();
     var txt = login.name;
-    console.log(txt);
+    console.log(txt + '//client side log');
     if (txt.length > 0) {
         username = txt;
         $('#controls').show();

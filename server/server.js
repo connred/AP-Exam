@@ -164,7 +164,7 @@ io.sockets.on('connection', function (socket) {
     socket.emit('Welcome', {
         text: "Chat here:"
     });
-    socket.on('user', function (name) {
+    socket.on('user', function (username) {
         console.log(username + ' connected');
         users.push(username);
         socket.user = username;
