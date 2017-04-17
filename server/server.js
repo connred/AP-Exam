@@ -92,11 +92,11 @@ https.createServer(options, function (req, res) {
         response.end(data, 'utf-8');
     });
 }).listen(443);
-var server = http.listen(80, function () {
+/*var server = http.listen(80, function () {
     cacheWellKnownKeys();
     console.log('hosting from ' + webroot);
     console.log('server listening on http://localhost/');
-});
+}); */
 console.log("server running at http://localhost/");
 
 function cacheWellKnownKeys() {
