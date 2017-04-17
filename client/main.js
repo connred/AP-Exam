@@ -8,8 +8,8 @@ $(document).ready(function () {
         input.val('');
     });
     socket.on('croom', function (data) {
-        $('#roomlist').append('<div><strong>' + data.room + '</strong></div>');
-        console.log('Room created', text.room);
+        $('#roomlist').append('<div><strong>' + data.text + '</strong></div>');
+        console.log('Room created', data.text);
     });
     $("#roomname").keyup(function (event) {
         if (event.keyCode == 13) {

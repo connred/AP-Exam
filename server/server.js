@@ -1,16 +1,17 @@
 var express = require('express');
-var jwt = require('jsonwebtoken'); 
+var jwt = require('jsonwebtoken');
 var fs = require('fs');
 var app = express();
-var moment = require('moment'); 
+var moment = require('moment');
 var request = require('request');
 var jwkToPem = require('jwk-to-pem');
-var bodyParser = require('body-parser'); 
-var bodyParser = require('body-parser'); 
+var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 var keyCache = {};
 //const MONGO_URL = 'mongodb://localhost:27017/NCMongo';
 const CLIENT_ID = '100486091355-flibl0f1jtafr4hahh9pueomqgb2533o.apps.googleusercontent.com';
-var http = require('http').Server(app);
+var http = require('http');
+var https = requrie('https');
 var webroot = __dirname + '/../client/';
 ///////////////////////////////////////////
 app.use('/', express.static(webroot));
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(allowCrossDomain);
 app.use(authorize);
+
 function allowCrossDomain(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE');
@@ -32,6 +34,7 @@ function allowCrossDomain(req, res, next) {
         next();
     }
 }
+
 function authorize(req, res, next) {
     // jwt.decode: https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken--options
     // jwt.verify: https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
@@ -71,12 +74,31 @@ function authorize(req, res, next) {
     }
 }
 //
-
-var server = http.listen(80, function() {
+var options = {
+    key: fs.readFileSync('key.pem')
+    , cert: fs.readFileSync('cert.pem')
+};
+http.createServer(function (req, res) {
+    res.writeHead(301, {
+        'Location': 'https://' + req.headers.host + req.url
+    });
+    res.end();
+}).listen(80);
+https.createServer(options, function (req, res) {
+    fs.readFile('/../client/index.html', function (error, data) {
+        response.writeHead(200, {
+            'Content-Type': 'text/html'
+        });
+        response.end(data, 'utf-8');
+    });
+}).listen(443);
+var server = http.listen(80, function () {
     cacheWellKnownKeys();
     console.log('hosting from ' + webroot);
     console.log('server listening on http://localhost/');
 });
+console.log("server running at http://localhost/");
+
 function cacheWellKnownKeys() {
     // get the well known config from google
     request('https://accounts.google.com/.well-known/openid-configuration', function (err, res, body) {
@@ -155,7 +177,6 @@ function allowCrossDomain(req, res, next) {
 }
 */
 //
-
 var users = [];
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
@@ -188,5 +209,4 @@ io.sockets.on('connection', function (socket) {
         })
     });
     //
-    
 });
