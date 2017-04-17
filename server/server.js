@@ -11,7 +11,7 @@ var keyCache = {};
 //const MONGO_URL = 'mongodb://localhost:27017/NCMongo';
 const CLIENT_ID = '100486091355-flibl0f1jtafr4hahh9pueomqgb2533o.apps.googleusercontent.com';
 var http = require('http');
-var https = requrie('https');
+var https = require('https');
 var webroot = __dirname + '/../client/';
 ///////////////////////////////////////////
 app.use('/', express.static(webroot));
