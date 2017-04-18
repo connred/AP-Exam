@@ -1,15 +1,15 @@
 $(document).ready(function () {
     $('#croom').click(function () {
         var input = $('#roomname');
-        var text = input.val().trim();
+        var data = input.val().trim();
         if (text.length > 0) {
-            socket.emit('croom', text);
+            socket.emit('croom', data);
         }
         input.val('');
     });
     socket.on('croom', function (data) {
-        $('#roomlist').append('<div><strong>' + data.text + '</strong></div>');
-        console.log('Room created', data.text);
+        $('#roomlist').append('<div><strong>' + data + '</strong></div>');
+        console.log('Room created', data);
     });
     $("#roomname").keyup(function (event) {
         if (event.keyCode == 13) {
