@@ -2,7 +2,7 @@ $(document).ready(function () {
     $('#croom').click(function () {
         var input = $('#roomname');
         var data = input.val().trim();
-        if (text.length > 0) {
+        if (data.length > 0) {
             socket.emit('croom', data);
         }
         input.val('');
