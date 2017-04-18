@@ -7,6 +7,7 @@ var request = require('request');
 var jwkToPem = require('jwk-to-pem');
 var bodyParser = require('body-parser');
 var bodyParser = require('body-parser');
+var socketio = require('socket.io');
 var keyCache = {};
 //const MONGO_URL = 'mongodb://localhost:27017/NCMongo';
 const CLIENT_ID = '100486091355-flibl0f1jtafr4hahh9pueomqgb2533o.apps.googleusercontent.com';
@@ -74,7 +75,7 @@ function authorize(req, res, next) {
     }
 }
 //
-var options = {
+/*var options = {
     key: fs.readFileSync('key.pem')
     , cert: fs.readFileSync('cert.pem')
 };
@@ -85,19 +86,20 @@ http.createServer(function (req, res) {
     res.end();
 }).listen(80);
 https.createServer(options, function (req, res) {
-    fs.readFile('/../client/index.html', function (error, data) {
+    fs.readFile('./client/index.html', function (error, data) {
         response.writeHead(200, {
             'Content-Type': 'text/html'
         });
         response.end(data, 'utf-8');
     });
 }).listen(443);
-/*var server = http.listen(80, function () {
+var server = https.createServer(options, app); */
+var server = http.listen(80, function () {
     cacheWellKnownKeys();
     console.log('hosting from ' + webroot);
     console.log('server listening on http://localhost/');
-}); */
-console.log("server running at http://localhost/");
+}); 
+
 
 function cacheWellKnownKeys() {
     // get the well known config from google
