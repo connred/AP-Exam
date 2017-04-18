@@ -6,12 +6,11 @@ var moment = require('moment');
 var request = require('request');
 var jwkToPem = require('jwk-to-pem');
 var bodyParser = require('body-parser');
-var bodyParser = require('body-parser');
 var socketio = require('socket.io');
 var keyCache = {};
 //const MONGO_URL = 'mongodb://localhost:27017/NCMongo';
 const CLIENT_ID = '100486091355-flibl0f1jtafr4hahh9pueomqgb2533o.apps.googleusercontent.com';
-var http = require('http');
+var http = require('http').Server(app);
 var https = require('https');
 var webroot = __dirname + '/../client/';
 ///////////////////////////////////////////
