@@ -205,7 +205,10 @@ io.sockets.on('connection', function (socket) {
     });
     socket.on('croom', function (data) {
         //add mongo funciton for the GET
-        socket.broadcast.emit('croom', data);
+        console.log(data);
+        io.sockets.emit('croom', {
+            room: data
+        });
     });
     //
 });

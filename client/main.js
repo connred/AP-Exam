@@ -1,14 +1,14 @@
 $(document).ready(function () {
     $('#croom').click(function () {
         var input = $('#roomname');
-        var data = input.val().trim();
+        var room = input.val().trim();
         if (data.length > 0) {
-            socket.emit('croom', data);
+            socket.emit('croom', room);
         }
         input.val('');
     });
     socket.on('croom', function (data) {
-        $('#roomlist').append('<div><strong>' + data + '</strong></div>');
+        $('#roomlist').append('<div><strong>' + data.room + '</strong></div>');
         console.log('Room created', data);
     });
     $("#roomname").keyup(function (event) {
