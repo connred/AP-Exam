@@ -46,9 +46,7 @@ function onSignIn(googleUser) {
     if (txt.length > 0) {
         username = txt;
         $('#controls').show();
-        $('#log').prop('hidden', false);
-        $('#message').prop('disabled', false);
-        $('#send').prop('disabled', false);
+        $('#rooms').prop('hidden', false);
         socket.emit('user', username);
     }
     /*get('/addrooms', function (data) {
