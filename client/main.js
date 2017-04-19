@@ -2,14 +2,14 @@ $(document).ready(function () {
     $('#croom').click(function () {
         var input = $('#roomname');
         var room = input.val().trim();
-        if (data.length > 0) {
+        if (room.length > 0) {
             socket.emit('croom', room);
         }
         input.val('');
     });
     socket.on('croom', function (data) {
         $('#roomlist').append('<div><strong>' + data.room + '</strong></div>');
-        console.log('Room created', data);
+        console.log('Room created', data.room);
     });
     $("#roomname").keyup(function (event) {
         if (event.keyCode == 13) {
