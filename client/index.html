@@ -9,20 +9,18 @@
 
 <body>
     <div id="content">
-        <h1>NC</h1>
+        <h1>Chatroom</h1>
         <br>
         <div id="user">
-            <div class="g-signin2" data-onsuccess="onSignIn"></div> <a class="signout" href="#" onclick="signOut();" hidden>Sign out</a> <a class="signout" href="#" onclick="disconnect();" hidden>Disconnect</a> 
-        </div>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div> <a class="signout" href="#" onclick="signOut();" hidden>Sign out</a> <a class="signout" href="#" onclick="disconnect();" hidden>Disconnect</a> </div>
         <br>
-        <div id="rooms" hidden>
-            <div id="roomlist"></div>
+        <div style="float:left;width:100px;border-right:1px solid black;height:300px;padding:10px;overflow:scroll-y;"> <b>ROOMS</b>
+            <div id="rooms"></div>
         </div>
-        <br>
-        <div id="controls">
-            <button id="croom">Create Room</button>
-            <input id="roomname">
-        </div>
+        <div style="float:left;width:300px;height:250px;overflow:scroll-y;padding:10px;">
+            <div id="conversation"></div>
+            <input id="data" style="width:200px;" />
+            <input type="button" id="datasend" value="send" /> </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
