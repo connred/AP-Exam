@@ -125,7 +125,7 @@ io.sockets.on('connection', function (socket) {
 	});
     socket.on('sendchat', function (data) {
 		// we tell the client to execute 'updatechat' with 2 parameters
-		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+		io.sockets.in(socket.room).emit('updatechat', socket.user, data);
 	});
     socket.on('switchRoom', function(newroom){
 		// leave the current room (stored in session)
