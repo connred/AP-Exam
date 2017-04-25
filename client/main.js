@@ -1,7 +1,7 @@
 $(document).ready(function () {
     socket.on('connect', function(){
 		// call the server-side function 'adduser' and send one parameter (value of prompt)
-		socket.emit('adduser', prompt("What's your name?"));
+		//socket.emit('adduser', prompt("What's your name?"));
 	});
 
 	// listener, whenever the server emits 'updatechat', this updates the chat body
