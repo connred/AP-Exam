@@ -109,6 +109,8 @@ io.sockets.on('connection', function (socket) {
     socket.on('adduser', function(login){
 		// store the username in the socket session for this client
 		socket.user = login.name;
+        console.log('socket.user= ' + socket.user);
+        console.log('login.name= '+ login.name)
 		// store the room name in the socket session for this client
 		socket.room = 'room1';
 		// add the client's username to the global list
