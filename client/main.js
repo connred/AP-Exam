@@ -1,3 +1,5 @@
+var socket = io.connect();
+
 $(document).ready(function () {
     socket.on('connect', function(){
 		// call the server-side function 'adduser' and send one parameter (value of prompt)
@@ -44,7 +46,7 @@ function switchRoom(room){
 			}
 		});
 	});
-var socket = io.connect();
+
 
 function route(url) {
     return 'http://130.211.216.160:3000' + url
@@ -68,14 +70,8 @@ function onSignIn(googleUser) {
         //post('/login', login);
     $('.g-signin2').hide();
     $('.signout').prop('hidden', false);
-    var txt = login.name;
-    console.log(txt + '//client side log');
-    if (txt.length > 0) {
-        username = txt;
-        //$('#controls').show();
-        //$('#rooms').prop('hidden', false);
-        socket.emit('adduser', username);
-    }
+
+        socket.emit('adduser', login);
     /*get('/addrooms', function (data) {
         for (var i = 0; i < data.length; i++) {
             if (data[i].id && data[i].text) {

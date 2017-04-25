@@ -106,19 +106,19 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
     var clientIp = socket.request.connection.remoteAddress;
     console.log('socket connected from ' + clientIp);
-    socket.on('adduser', function(username){
+    socket.on('adduser', function(login){
 		// store the username in the socket session for this client
-		socket.user = username;
+		socket.user = login.name;
 		// store the room name in the socket session for this client
 		socket.room = 'room1';
 		// add the client's username to the global list
-		usernames[username] = username;
+		usernames[login.name] = login.name;
 		// send client to room 1
 		socket.join('room1');
 		// echo to client they've connected
 		socket.emit('updatechat', 'SERVER', 'you have connected to room1');
 		// echo to room 1 that a person has connected to their room
-		socket.broadcast.to('room1').emit('updatechat', 'SERVER', username + ' has connected to this room');
+		socket.broadcast.to('room1').emit('updatechat', 'SERVER', login.name + ' has connected to this room');
 		socket.emit('updaterooms', rooms, 'room1');
 	});
     socket.on('sendchat', function (data) {
