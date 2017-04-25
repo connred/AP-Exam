@@ -74,7 +74,7 @@ function onSignIn(googleUser) {
         username = txt;
         //$('#controls').show();
         //$('#rooms').prop('hidden', false);
-        socket.emit('addUser', username);
+        socket.emit('adduser', username);
     }
     /*get('/addrooms', function (data) {
         for (var i = 0; i < data.length; i++) {

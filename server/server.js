@@ -74,25 +74,6 @@ function authorize(req, res, next) {
     }
 }
 //
-/*var options = {
-    key: fs.readFileSync('key.pem')
-    , cert: fs.readFileSync('cert.pem')
-};
-http.createServer(function (req, res) {
-    res.writeHead(301, {
-        'Location': 'https://' + req.headers.host + req.url
-    });
-    res.end();
-}).listen(80);
-https.createServer(options, function (req, res) {
-    fs.readFile('./client/index.html', function (error, data) {
-        response.writeHead(200, {
-            'Content-Type': 'text/html'
-        });
-        response.end(data, 'utf-8');
-    });
-}).listen(443);
-var server = https.createServer(options, app); */
 var server = http.listen(80, function () {
     //cacheWellKnownKeys();
     console.log('hosting from ' + webroot);
@@ -119,74 +100,12 @@ function cacheWellKnownKeys() {
         });
     });
 }
-////////////////////////////////////////
-/*Mongo.connect(MONGO_URL, function (err, db) {
-    // TODO: handle err
-    if (err) log('error?');
-    else log('good to go');
-    Mongo.ops = {};
-    Mongo.ops.find = function (collection, json, callback) {
-        db.collection(collection).find(json).toArray(function (err, docs) {
-            // TODO: handle err
-            if (callback) callback(err, docs);
-        });
-    };
-    Mongo.ops.findOne = function (collection, json, callback) {
-        db.collection(collection).findOne(json, function (err, doc) {
-            // TODO: handle err
-            if (callback) callback(err, doc);
-        });
-    };
-    Mongo.ops.insert = function (collection, json, callback) {
-        db.collection(collection).insert(json, function (err, result) {
-            // TODO: handle err
-            if (callback) callback(err, result);
-        });
-    };
-    Mongo.ops.upsert = function (collection, query, json, callback) {
-        db.collection(collection).updateOne(query, {
-            $set: json
-        }, {
-            upsert: true
-        }, function (err, result) {
-            // TODO: handle err
-            if (callback) callback(err, result);
-        });
-    };
-    Mongo.ops.updateOne = function (collection, query, json, callback) {
-        db.collection(collection).updateOne(query, {
-            $set: json
-        }, function (err, result) {
-            // TODO: handle err
-            if (callback) callback(err, result);
-        });
-    };
-});*/
-/*
-function allowCrossDomain(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Authorization');
-    // end pre flights
-    if (req.method === 'OPTIONS') {
-        res.writeHead(204);
-        res.end();
-    }
-    else {
-        next();
-    }
-}
-*/
-//
 var usernames = {};
 var rooms = ['room1','room2','room3'];
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
     var clientIp = socket.request.connection.remoteAddress;
     console.log('socket connected from ' + clientIp);
-    socket.emit('Welcome', {
-        text: "Chat here:"
-    });
     socket.on('adduser', function(username){
 		// store the username in the socket session for this client
 		socket.user = username;
@@ -229,29 +148,5 @@ io.sockets.on('connection', function (socket) {
 		socket.leave(socket.room);
 	});
 
-    /*socket.on('user', function (username) {
-        console.log(username + ' connected');
-        users.push(username);
-        socket.user = username;
-        console.log('users : ' + users.length);
-        socket.broadcast.emit('otherUserConnect', socket.user);
-    });
-    socket.on('disconnect', function () {
-        if (!socket.user) {
-            return;
-        }
-        if (users.indexOf(socket.user) > -1) {
-            console.log(socket.user + ' disconnected');
-            users.splice(users.indexOf(socket.user), 1);
-            socket.broadcast.emit('otherUserDisconnect', socket.user);
-        }
-    });
-    socket.on('croom', function (data) {
-        //add mongo funciton for the GET
-        console.log(data);
-        io.sockets.emit('croom', {
-            room: data
-        });
-    });*/
     //
 });
