@@ -1,4 +1,4 @@
-var socket = io.connect();
+var socket = io.connect('http://localhost');
 
 $(document).ready(function () {
     socket.on('connect', function(){
@@ -49,7 +49,7 @@ function switchRoom(room){
 
 
 function route(url) {
-    return 'http://130.211.216.160:3000' + url
+    return 'http://130.211.216.160' + url
 }
 ///
 var username;
@@ -70,8 +70,8 @@ function onSignIn(googleUser) {
         //post('/login', login);
     $('.g-signin2').hide();
     $('.signout').prop('hidden', false);
-
-        socket.emit('adduser', login);
+    $('#conversation').prop('disabled', false);
+    socket.emit('adduser', login);
     /*get('/addrooms', function (data) {
         for (var i = 0; i < data.length; i++) {
             if (data[i].id && data[i].text) {
