@@ -1,17 +1,27 @@
-var socket = io.connect('http://localhost');
-
+var socket = io.connect('http://130.211.216.160');
+var primaryLog = {
+    Primary : [],
+    Alternate : []
+};
 $(document).ready(function () {
+    
+            function logMessages(username, data, rooms, current_room) {
+            var messageData = {
+                'user' : username,
+                'messageContent' : data,
+                'current_room' : current_room
+            }
+            primaryLog[current_room].push(messageData);
+        });
+    
     socket.on('connect', function(){
-		// call the server-side function 'adduser' and send one parameter (value of prompt)
-		//socket.emit('adduser', prompt("What's your name?"));
 	});
 
-	// listener, whenever the server emits 'updatechat', this updates the chat body
-	socket.on('updatechat', function (username, data) {
+	socket.on('updatechat', function (username, data, rooms, current_room) {
 		$('#conversation').append('<b>'+username + ':</b> ' + data + '<br>');
+
 	});
 
-	// listener, whenever the server emits 'updaterooms', this updates the room the client is in
 	socket.on('updaterooms', function(rooms, current_room) {
 		$('#rooms').empty();
 		$.each(rooms, function(key, value) {
@@ -27,18 +37,12 @@ $(document).ready(function () {
 function switchRoom(room){
 		socket.emit('switchRoom', room);
 	}
-
-	// on load of page
 	$(function(){
-		// when the client clicks SEND
 		$('#datasend').click( function() {
 			var message = $('#data').val();
 			$('#data').val('');
-			// tell server to execute 'sendchat' and send along one parameter
 			socket.emit('sendchat', message);
 		});
-
-		// when the client hits ENTER on their keyboard
 		$('#data').keypress(function(e) {
 			if(e.which == 13) {
 				$(this).blur();
@@ -46,15 +50,13 @@ function switchRoom(room){
 			}
 		});
 	});
-
-
 function route(url) {
     return 'http://130.211.216.160' + url
 }
 ///
 var username;
-var profile; // google user profile
-var authResponse; // google user auth response
+var profile;
+var authResponse;
 function onSignIn(googleUser) {
     profile = googleUser.getBasicProfile();
     authResponse = googleUser.getAuthResponse();
@@ -67,18 +69,10 @@ function onSignIn(googleUser) {
             , 'email': profile.getEmail()
             , 'hostedDomain': googleUser.getHostedDomain()
         }
-        //post('/login', login);
     $('.g-signin2').hide();
     $('.signout').prop('hidden', false);
     $('#conversation').prop('disabled', false);
     socket.emit('adduser', login);
-    /*get('/addrooms', function (data) {
-        for (var i = 0; i < data.length; i++) {
-            if (data[i].id && data[i].text) {
-                $('#rooms').append('<div><strong><span>' + data[i].text + '</span></strong></div>');
-            }
-        }
-    });*/
 }
 
 function signOut() {
@@ -117,23 +111,6 @@ function get(url, success, error) {
     $.ajax({
         url: route(url)
         , method: 'GET'
-        , headers: {
-            'Authorization': authResponse.id_token
-        }
-        , success: function (data) {
-            if (success) success(data);
-        }
-        , error: function () {
-            if (error) error();
-        }
-    })
-}
-
-function put(url, json, success, error) {
-    $.ajax({
-        url: route(url)
-        , method: 'PUT'
-        , data: json
         , headers: {
             'Authorization': authResponse.id_token
         }

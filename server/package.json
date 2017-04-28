@@ -1,5 +1,8 @@
 {
-    "dependencies": {
+    "name": "apcreate_connorredmond"
+    , "description": "Chat using socketIO & node that utilizies Google Sign in"
+    , "version": "0.0.1"
+    , "dependencies": {
         "express": "^4.13.4"
         , "socket.io": "1.4.5"
         , "body-parser": "^1.16.0"
@@ -7,7 +10,6 @@
         , "jsonwebtoken": "^7.2.1"
         , "jwk-to-pem": "^1.2.6"
         , "moment": "^2.17.1"
-        , "mongodb": "^2.2.21"
         , "request": "^2.79.0"
     }
 }
