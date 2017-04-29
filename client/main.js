@@ -41,19 +41,16 @@ function switchRoom(room) {
     $('#conversation').empty
     console.log('switchrooms //' + room);
     for (var i = 0; i < primaryLog[room].length; i++) {
-            if (data[i].user && data[i].messageContent) {
-                $('#conversation').append('<b>' + messageData.user + ':</b> ' + messageData.messageContent + '<br>');
-            }
+        $('#conversation').append('<b>' + messageData.user + ':</b> ' + messageData.messageContent + '<br>');
     }
 }
-
 $(function () {
     $('#datasend').click(function () {
         var message = $('#data').val();
         $('#data').val('');
         var data = {
-            'message' : message,
-            'room' : null
+            'message': message
+            , 'room': null
         }
         socket.emit('sendchat', data);
     });
