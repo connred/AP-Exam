@@ -14,8 +14,9 @@ $(document).ready(function () {
     socket.on('addMessages', function (data) {
         console.log(data.currentroom);
         console.log(data);
-        for (var i = 0; i < data[data.currentroom].length; i++) {
-            $('#conversation').append('<b>' + data[data.currentroom][i].user + ':</b> ' + data[room][i].messageContent + '<br>');
+        var array = data.currentroom
+        for (var i = 0; i < data[array].length; i++) {
+            $('#conversation').append('<b>' + data[array][i].user + ':</b> ' + data[array][i].messageContent + '<br>');
         }
     })
     socket.on('connect', function () {
