@@ -17,7 +17,7 @@ $(document).ready(function () {
         }
     })
     socket.on('connect', function () {
-        $('#conversation').append('<b>' + Welcome + ':</b> ' + login.id + '<br>');
+        $('#conversation').append('<b>' + 'Welcome' + ':</b> ' + login.id + '<br>');
     });
     socket.on('updatechat', function (username, data) {
         $('#conversation').append('<b>' + username + ':</b> ' + data.message + '<br>');
