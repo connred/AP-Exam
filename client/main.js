@@ -31,8 +31,6 @@ $(document).ready(function () {
     });
     socket.on('updatechat', function (username, data) {
         $('#conversation').append('<b>' + username + ':</b> ' + data.message + '<br>');
-        logMessages(username, data);
-        socket.emit('logMessages', messageData)
     });
     socket.on('updaterooms', function (rooms, current_room) {
         $('#rooms').empty();

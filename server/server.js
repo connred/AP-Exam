@@ -89,6 +89,17 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
     var clientIp = socket.request.connection.remoteAddress;
     console.log('socket connected from ' + clientIp);
+    function logMessages(username, data) {
+        messageData = {
+            'user': username
+            , 'messageContent': data.message
+            , 'room': data.room
+        };
+        primaryLog[messageData.room].push(messageData);
+        return primaryLog;
+        return messageData;
+        
+    }
     socket.on('adduser', function(login){
 		socket.user = login.name;
         console.log('socket.user= ' + socket.user);
@@ -100,12 +111,14 @@ io.sockets.on('connection', function (socket) {
 	});
     socket.on('sendchat', function (data) {
         data.room = socket.room
+        username = socket.user
+        logMessages(username, data);
 		io.sockets.in(socket.room).emit('updatechat', socket.user, data);
 	});
-    socket.on('logMessages', function (data) {
+    /*socket.on('logMessages', function (data) {
         primaryLog[data.room].push(data);
         console.log(primaryLog[data.room]);
-    });
+    });*/
     socket.on('getMessages', function (data){
         console.log(data);
         primaryLog.currentRoom = data;
