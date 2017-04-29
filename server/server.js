@@ -92,8 +92,8 @@ io.sockets.on('connection', function (socket) {
 		socket.room = 'Primary';
 		usernames[login.name] = login.name;
 		socket.join('Primary');
-		socket.emit('updatechat', 'CONSOLE', 'you have connected to Primary');
-		socket.broadcast.to('room1').emit('updatechat', 'CONSOLE', login.name + ' has connected to' + socket.room);
+		//socket.emit('updatechat', 'CONSOLE', 'you have connected to Primary');
+		//socket.broadcast.to('Primary').emit('updatechat', 'CONSOLE', login.name + ' has connected to' + socket.room);
 		socket.emit('updaterooms', rooms, 'Primary');
 	});
     socket.on('sendchat', function (data) {
