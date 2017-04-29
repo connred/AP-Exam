@@ -12,6 +12,8 @@ $(document).ready(function () {
         return messageData;
     }
     socket.on('addMessages', function (data, room) {
+        console.log(data);
+        console.log(room);
         for (var i = 0; i < data[room].length; i++) {
             $('#conversation').append('<b>' + data[room][i].user + ':</b> ' + data[room][i].messageContent + '<br>');
         }
