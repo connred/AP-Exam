@@ -18,7 +18,7 @@ $(document).ready(function () {
     }
     socket.on('connect', function () {});
     socket.on('updatechat', function (username, data) {
-        $('#conversation').append('<b>' + username + ':</b> ' + data + '<br>');
+        $('#conversation').append('<b>' + username + ':</b> ' + data.message + '<br>');
         logMessages(username, data.message, data.room);
     });
     socket.on('updaterooms', function (rooms, current_room) {
@@ -52,7 +52,7 @@ $(function () {
             'message' : message,
             'room' : null
         }
-        socket.emit('sendchat', message);
+        socket.emit('sendchat', data);
     });
     $('#data').keypress(function (e) {
         if (e.which == 13) {
