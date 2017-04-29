@@ -16,12 +16,12 @@ $(document).ready(function () {
         console.log(data);
         var array = data.currentRoom
         if (array == "Primary") {
-            for (var i = 0; i < data[data.Primary].length; i++) {
+            for (var i = 0; i < data.Primary.length; i++) {
                 $('#conversation').append('<b>' + data[data.Primary][i].user + ':</b> ' + data[data.Primary][i].messageContent + '<br>');
             }
         }
         if (array == "Alternate") {
-            for (var i = 0; i < data[data.Alternate].length; i++) {
+            for (var i = 0; i < data.Alternate.length; i++) {
                 $('#conversation').append('<b>' + data[data.Alternate][i].user + ':</b> ' + data[data.Alternate][i].messageContent + '<br>');
             }
         }
