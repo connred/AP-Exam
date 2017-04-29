@@ -40,7 +40,7 @@ function switchRoom(room) {
     socket.emit('switchRoom', room);
     $('#conversation').html('');
     console.log('switchrooms //' + room);
-    $('#conversation').append('<b>' + 'You have connected to:' + ':</b> ' + room + '<br>');
+    $('#conversation').append('<b>' + 'You have connected to' + ':</b> ' + room + '<br>');
     for (var i = 0; i < primaryLog[room].length; i++) {
         $('#conversation').append('<b>' + primaryLog[room][i].user + ':</b> ' + primaryLog[room][i].messageContent + '<br>');
     }
