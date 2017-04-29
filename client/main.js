@@ -12,9 +12,9 @@ $(document).ready(function () {
         return messageData;
     }
     socket.on('addMessages', function (data) {
-        console.log(data.currentroom);
+        console.log(data.currentRoom);
         console.log(data);
-        var array = data.currentroom
+        var array = data.currentRoom
         if (array == "Primary") {
             for (var i = 0; i < data[data.Primary].length; i++) {
                 $('#conversation').append('<b>' + data[data.Primary][i].user + ':</b> ' + data[data.Primary][i].messageContent + '<br>');
