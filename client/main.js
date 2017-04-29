@@ -8,9 +8,10 @@ $(document).ready(function () {
         var messageData = {
             'user': username
             , 'messageContent': data
-            , 'current_room': current_room
+            , 'current_room': rooms
         };
-        primaryLog[current_room].push(messageData);
+        console.log('logmessages //' + rooms);
+        //primaryLog[current_room].push(messageData);
         return primaryLog;
     }
     socket.on('connect', function () {});
@@ -33,6 +34,7 @@ $(document).ready(function () {
 
 function switchRoom(room) {
     socket.emit('switchRoom', room);
+    console.log('switchrooms //' + room);
     for (var i = 0; i < primaryLog[room].length; i++) {
             if (data[i].user && data[i].messageContent) {
                 $('#conversation').append('<b>' + user + ':</b> ' + messageContent + '<br>');
