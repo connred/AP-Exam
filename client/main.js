@@ -3,23 +3,26 @@ var primaryLog = {
     Primary: []
     , Alternate: []
 };
-var messageData
+var messageData;
 $(document).ready(function () {
     function logMessages(username, data) {
         messageData = {
             'user': username
             , 'messageContent': data.message
-            , 'current_room': data.room
+            , 'room': data.room
         };
         console.log('logmessages //' + data.room);
-        primaryLog[data.room].push(messageData);
+        console.log(room);
+        //primaryLog[data.room].push(messageData);
         return primaryLog;
         return messageData;
     }
     socket.on('connect', function () {});
     socket.on('updatechat', function (username, data) {
+        console.log(username);
+        console.log(data);
         $('#conversation').append('<b>' + username + ':</b> ' + data.message + '<br>');
-        logMessages(username, data.message, data.room);
+        logMessages(username, data);
     });
     socket.on('updaterooms', function (rooms, current_room) {
         $('#rooms').empty();
@@ -50,7 +53,7 @@ $(function () {
         $('#data').val('');
         var data = {
             'message' : message,
-            'room' : null
+            'room' : empty
         }
         socket.emit('sendchat', data);
     });
