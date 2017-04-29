@@ -12,7 +12,7 @@ $(document).ready(function () {
             , 'room': data.room
         };
         console.log('logmessages //' + data.room);
-        primaryLog[data.room].push(messageData);
+        primaryLog[messageData.room].push(messageData);
         return primaryLog;
         return messageData;
     }
@@ -38,7 +38,7 @@ $(document).ready(function () {
 
 function switchRoom(room) {
     socket.emit('switchRoom', room);
-    $('conversation').empty
+    $('#conversation').empty
     console.log('switchrooms //' + room);
     for (var i = 0; i < primaryLog[room].length; i++) {
             if (data[i].user && data[i].messageContent) {
