@@ -78,7 +78,10 @@ var server = http.listen(80, function () {
     console.log('server listening on http://localhost/');
 }); 
 
-
+var primaryLog = {
+    Primary: []
+    , Alternate: []
+};
 var usernames = {};
 var rooms = ['Primary','Alternate'];
 var io = require('socket.io').listen(server);
@@ -92,14 +95,18 @@ io.sockets.on('connection', function (socket) {
 		socket.room = 'Primary';
 		usernames[login.name] = login.name;
 		socket.join('Primary');
-		//socket.emit('updatechat', 'CONSOLE', 'you have connected to Primary');
-		//socket.broadcast.to('Primary').emit('updatechat', 'CONSOLE', login.name + ' has connected to' + socket.room);
 		socket.emit('updaterooms', rooms, 'Primary');
 	});
     socket.on('sendchat', function (data) {
         data.room = socket.room
 		io.sockets.in(socket.room).emit('updatechat', socket.user, data);
 	});
+    socket.on('logMessages', function (data) {
+        primaryLog[data.room].push(data);
+    });
+    socket.on('getMessages', function (data){
+        socket.emit('addMessages', primaryLog)
+    });
     socket.on('switchRoom', function(newroom){
 		socket.leave(socket.room);
 		socket.join(newroom);

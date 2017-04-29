@@ -1,8 +1,4 @@
 var socket = io.connect('http://130.211.216.160');
-var primaryLog = {
-    Primary: []
-    , Alternate: []
-};
 var messageData;
 $(document).ready(function () {
     function logMessages(username, data) {
@@ -11,17 +7,22 @@ $(document).ready(function () {
             , 'messageContent': data.message
             , 'room': data.room
         };
-        console.log('logmessages //' + data.room);
-        primaryLog[messageData.room].push(messageData);
-        return primaryLog;
+        //primaryLog[messageData.room].push(messageData);
+        //return primaryLog;
         return messageData;
     }
-    socket.on('connect', function () {});
+    socket.on('addMessages', function (data) {
+        for (var i = 0; i < data[room].length; i++) {
+            $('#conversation').append('<b>' + data[room][i].user + ':</b> ' + data[room][i].messageContent + '<br>');
+        }
+    })
+    socket.on('connect', function () {
+        $('#conversation').append('<b>' + Welcome + ':</b> ' + login.id + '<br>');
+    });
     socket.on('updatechat', function (username, data) {
-        console.log(username);
-        console.log(data);
         $('#conversation').append('<b>' + username + ':</b> ' + data.message + '<br>');
         logMessages(username, data);
+        socket.emit('logMessages', messageData)
     });
     socket.on('updaterooms', function (rooms, current_room) {
         $('#rooms').empty();
@@ -39,11 +40,8 @@ $(document).ready(function () {
 function switchRoom(room) {
     socket.emit('switchRoom', room);
     $('#conversation').html('');
-    console.log('switchrooms //' + room);
     $('#conversation').append('<b>' + 'You have connected to' + ':</b> ' + room + '<br>');
-    for (var i = 0; i < primaryLog[room].length; i++) {
-        $('#conversation').append('<b>' + primaryLog[room][i].user + ':</b> ' + primaryLog[room][i].messageContent + '<br>');
-    }
+    socket.emit('getMessages', room);
 }
 $(function () {
     $('#datasend').click(function () {
