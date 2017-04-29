@@ -81,6 +81,7 @@ var server = http.listen(80, function () {
 var primaryLog = {
     Primary: []
     , Alternate: []
+    , currentRoom: null
 };
 var usernames = {};
 var rooms = ['Primary','Alternate'];
@@ -103,10 +104,11 @@ io.sockets.on('connection', function (socket) {
 	});
     socket.on('logMessages', function (data) {
         primaryLog[data.room].push(data);
-        console.log(primaryLog);
         console.log(primaryLog[data.room]);
     });
     socket.on('getMessages', function (data){
+        console.log(data);
+        primaryLog.currentRoom = data;
         socket.emit('addMessages', primaryLog)
     });
     socket.on('switchRoom', function(newroom){

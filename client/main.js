@@ -11,11 +11,9 @@ $(document).ready(function () {
         //return primaryLog;
         return messageData;
     }
-    socket.on('addMessages', function (data, room) {
-        console.log(data);
-        console.log(room);
-        for (var i = 0; i < data[room].length; i++) {
-            $('#conversation').append('<b>' + data[room][i].user + ':</b> ' + data[room][i].messageContent + '<br>');
+    socket.on('addMessages', function (data) {
+        for (var i = 0; i < data[data.currentroom].length; i++) {
+            $('#conversation').append('<b>' + data[data.currentroom][i].user + ':</b> ' + data[room][i].messageContent + '<br>');
         }
     })
     socket.on('connect', function () {
@@ -40,12 +38,10 @@ $(document).ready(function () {
 });
 
 function switchRoom(room) {
-    var room = room;
     socket.emit('switchRoom', room);
     $('#conversation').html('');
     $('#conversation').append('<b>' + 'You have connected to' + ':</b> ' + room + '<br>');
     socket.emit('getMessages', room);
-    return room;
 }
 $(function () {
     $('#datasend').click(function () {
