@@ -93,7 +93,7 @@ io.sockets.on('connection', function (socket) {
 		usernames[login.name] = login.name;
 		socket.join('Primary');
 		//socket.emit('updatechat', 'CONSOLE', 'you have connected to Primary');
-		//socket.broadcast.to('Primary').emit('updatechat', 'CONSOLE', login.name + ' has connected to' + socket.room);
+		socket.broadcast.to('Primary').emit('updatechat', 'CONSOLE', login.name + ' has connected to' + socket.room);
 		socket.emit('updaterooms', rooms, 'Primary');
 	});
     socket.on('sendchat', function (data) {
@@ -106,7 +106,7 @@ io.sockets.on('connection', function (socket) {
 		//socket.emit('updatechat', 'SERVER', 'you have connected to '+ newroom);
 		socket.broadcast.to(socket.room).emit('updatechat', 'CONSOLE', socket.user+' has left this room');
 		socket.room = newroom;
-		//socket.broadcast.to(newroom).emit('updatechat', 'CONSOLE', socket.user+' has joined this room');
+		socket.broadcast.to(newroom).emit('updatechat', 'CONSOLE', socket.user+' has joined this room');
 		socket.emit('updaterooms', rooms, newroom);
 	});
     socket.on('disconnect', function(){

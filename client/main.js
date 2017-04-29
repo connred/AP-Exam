@@ -40,6 +40,7 @@ function switchRoom(room) {
     socket.emit('switchRoom', room);
     $('#conversation').html('');
     console.log('switchrooms //' + room);
+    $('#conversation').append('<b>' + 'You have connected to:' + ':</b> ' + room + '<br>');
     for (var i = 0; i < primaryLog[room].length; i++) {
         $('#conversation').append('<b>' + primaryLog[room][i].user + ':</b> ' + primaryLog[room][i].messageContent + '<br>');
     }
@@ -91,6 +92,7 @@ function onSignIn(googleUser) {
 function signOut() {
     gapi.auth2.getAuthInstance().signOut();
     socket.emit('disconnect');
+    $('#conversation').html('');
     $('.signout').prop('hidden', true);
     $('.g-signin2').show();
 }
@@ -98,6 +100,7 @@ function signOut() {
 function disconnect() {
     gapi.auth2.getAuthInstance().disconnect();
     socket.emit('disconnect');
+    $('#conversation').html('');
     $('.signout').prop('hidden', true);
     $('.g-signin2').show();
 }
