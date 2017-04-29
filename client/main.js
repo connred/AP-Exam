@@ -41,7 +41,7 @@ function switchRoom(room) {
     $('#conversation').empty
     console.log('switchrooms //' + room);
     for (var i = 0; i < primaryLog[room].length; i++) {
-        $('#conversation').append('<b>' + messageData.user + ':</b> ' + messageData.messageContent + '<br>');
+        $('#conversation').append('<b>' + primaryLog[room][i].user + ':</b> ' + primaryLog[room][i].messageContent + '<br>');
     }
 }
 $(function () {
