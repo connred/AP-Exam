@@ -53,7 +53,7 @@ $(function () {
         $('#data').val('');
         var data = {
             'message' : message,
-            'room' : empty
+            'room' : null
         }
         socket.emit('sendchat', data);
     });
