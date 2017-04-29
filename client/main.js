@@ -12,7 +12,6 @@ $(document).ready(function () {
             , 'room': data.room
         };
         console.log('logmessages //' + data.room);
-        console.log(room);
         //primaryLog[data.room].push(messageData);
         return primaryLog;
         return messageData;
