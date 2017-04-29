@@ -32,7 +32,7 @@ $(document).ready(function () {
         socket.emit('getMessages', join)
     });
     socket.on('updatechat', function (username, data) {
-        $('#conversation').append('<b>' + username + ':</b> ' + data + '<br>');
+        $('#conversation').append('<b>' + username + ':</b> ' + data.message + '<br>');
     });
     socket.on('updaterooms', function (rooms, current_room) {
         $('#rooms').empty();
