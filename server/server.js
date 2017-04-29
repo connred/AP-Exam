@@ -103,6 +103,8 @@ io.sockets.on('connection', function (socket) {
 	});
     socket.on('logMessages', function (data) {
         primaryLog[data.room].push(data);
+        console.log(primaryLog);
+        console.log(primaryLog[data.room]);
     });
     socket.on('getMessages', function (data){
         socket.emit('addMessages', primaryLog)
