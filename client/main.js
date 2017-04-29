@@ -15,8 +15,15 @@ $(document).ready(function () {
         console.log(data.currentroom);
         console.log(data);
         var array = data.currentroom
-        for (var i = 0; i < data[array].length; i++) {
-            $('#conversation').append('<b>' + data[array][i].user + ':</b> ' + data[array][i].messageContent + '<br>');
+        if (array == "Primary") {
+            for (var i = 0; i < data[data.Primary].length; i++) {
+                $('#conversation').append('<b>' + data[data.Primary][i].user + ':</b> ' + data[data.Primary][i].messageContent + '<br>');
+            }
+        }
+        if (array == "Alternate") {
+            for (var i = 0; i < data[data.Alternate].length; i++) {
+                $('#conversation').append('<b>' + data[data.Alternate][i].user + ':</b> ' + data[data.Alternate][i].messageContent + '<br>');
+            }
         }
     })
     socket.on('connect', function () {
