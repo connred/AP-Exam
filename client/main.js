@@ -3,21 +3,23 @@ var primaryLog = {
     Primary: []
     , Alternate: []
 };
+var messageData
 $(document).ready(function () {
-    function logMessages(username, data, rooms, current_room) {
-        var messageData = {
+    function logMessages(username, data) {
+        messageData = {
             'user': username
-            , 'messageContent': data
-            , 'current_room': rooms
+            , 'messageContent': data.message
+            , 'current_room': data.room
         };
-        console.log('logmessages //' + rooms);
-        //primaryLog[current_room].push(messageData);
+        console.log('logmessages //' + data.room);
+        primaryLog[data.room].push(messageData);
         return primaryLog;
+        return messageData;
     }
     socket.on('connect', function () {});
-    socket.on('updatechat', function (username, data, rooms, current_room) {
+    socket.on('updatechat', function (username, data) {
         $('#conversation').append('<b>' + username + ':</b> ' + data + '<br>');
-        logMessages(username, data, rooms, current_room);
+        logMessages(username, data.message, data.room);
     });
     socket.on('updaterooms', function (rooms, current_room) {
         $('#rooms').empty();
@@ -37,7 +39,7 @@ function switchRoom(room) {
     console.log('switchrooms //' + room);
     for (var i = 0; i < primaryLog[room].length; i++) {
             if (data[i].user && data[i].messageContent) {
-                $('#conversation').append('<b>' + user + ':</b> ' + messageContent + '<br>');
+                $('#conversation').append('<b>' + messageData.user + ':</b> ' + messageData.messageContent + '<br>');
             }
     }
 }
@@ -46,6 +48,10 @@ $(function () {
     $('#datasend').click(function () {
         var message = $('#data').val();
         $('#data').val('');
+        var data = {
+            'message' : message,
+            'room' : null
+        }
         socket.emit('sendchat', message);
     });
     $('#data').keypress(function (e) {

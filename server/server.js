@@ -97,6 +97,7 @@ io.sockets.on('connection', function (socket) {
 		socket.emit('updaterooms', rooms, 'Primary');
 	});
     socket.on('sendchat', function (data) {
+        data.room = socket.room
 		io.sockets.in(socket.room).emit('updatechat', socket.user, data);
 	});
     socket.on('switchRoom', function(newroom){
