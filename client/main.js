@@ -38,10 +38,10 @@ $(document).ready(function () {
 
 function switchRoom(room) {
     socket.emit('switchRoom', room);
-    $('#conversation').empty
+    $('#conversation')
     console.log('switchrooms //' + room);
     for (var i = 0; i < primaryLog[room].length; i++) {
-        $('#conversation').append('<b>' + primaryLog[room][i].user + ':</b> ' + primaryLog[room][i].messageContent + '<br>');
+        $('#conversation').html('<b>' + primaryLog[room][i].user + ':</b> ' + primaryLog[room][i].messageContent + '<br>');
     }
 }
 $(function () {
