@@ -112,7 +112,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('disconnect', function(){
         delete usernames[socket.user];
 		io.sockets.emit('updateusers', usernames);
-		socket.broadcast.emit('updatechat', 'CONSOLE', socket.user + ' has disconnected');
+		//socket.broadcast.emit('updatechat', 'CONSOLE', socket.user + ' has disconnected');
 		socket.leave(socket.room);
 	});
 
