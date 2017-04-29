@@ -17,12 +17,12 @@ $(document).ready(function () {
         var array = data.currentRoom
         if (array == "Primary") {
             for (var i = 0; i < data.Primary.length; i++) {
-                $('#conversation').append('<b>' + data[data.Primary][i].user + ':</b> ' + data[data.Primary][i].messageContent + '<br>');
+                $('#conversation').append('<b>' + data.Primary[i].user + ':</b> ' + data.Primary[i].messageContent + '<br>');
             }
         }
         if (array == "Alternate") {
             for (var i = 0; i < data.Alternate.length; i++) {
-                $('#conversation').append('<b>' + data[data.Alternate][i].user + ':</b> ' + data[data.Alternate][i].messageContent + '<br>');
+                $('#conversation').append('<b>' + data.Alternate[i].user + ':</b> ' + data.Alternate[i].messageContent + '<br>');
             }
         }
     })
