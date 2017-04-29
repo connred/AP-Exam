@@ -28,6 +28,8 @@ $(document).ready(function () {
     })
     socket.on('connect', function () {
         $('#conversation').append('<b>' + 'Welcome' + ':</b> ' + '<br>');
+        var join = "Primary"
+        socket.emit('getMessages', join)
     });
     socket.on('updatechat', function (username, data) {
         $('#conversation').append('<b>' + username + ':</b> ' + data.message + '<br>');

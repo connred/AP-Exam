@@ -107,6 +107,8 @@ io.sockets.on('connection', function (socket) {
 		socket.room = 'Primary';
 		usernames[login.name] = login.name;
 		socket.join('Primary');
+        socket.emit('updatechat', 'CONSOLE', 'you have connected to Primary');
+		socket.broadcast.to('Primary').emit('updatechat', 'CONSOLE', login.name + ' has connected to' + socket.room);
 		socket.emit('updaterooms', rooms, 'Primary');
 	});
     socket.on('sendchat', function (data) {
@@ -115,10 +117,6 @@ io.sockets.on('connection', function (socket) {
         logMessages(username, data);
 		io.sockets.in(socket.room).emit('updatechat', socket.user, data);
 	});
-    /*socket.on('logMessages', function (data) {
-        primaryLog[data.room].push(data);
-        console.log(primaryLog[data.room]);
-    });*/
     socket.on('getMessages', function (data){
         console.log(data);
         primaryLog.currentRoom = data;
@@ -127,10 +125,10 @@ io.sockets.on('connection', function (socket) {
     socket.on('switchRoom', function(newroom){
 		socket.leave(socket.room);
 		socket.join(newroom);
-		//socket.emit('updatechat', 'SERVER', 'you have connected to '+ newroom);
-		//socket.broadcast.to(socket.room).emit('updatechat', 'CONSOLE', socket.user+' has left this room');
+		socket.emit('updatechat', 'SERVER', 'you have connected to '+ newroom);
+		socket.broadcast.to(socket.room).emit('updatechat', 'CONSOLE', socket.user+' has left this room');
 		socket.room = newroom;
-		//socket.broadcast.to(newroom).emit('updatechat', 'CONSOLE', socket.user+' has joined this room');
+		socket.broadcast.to(newroom).emit('updatechat', 'CONSOLE', socket.user+' has joined this room');
 		socket.emit('updaterooms', rooms, newroom);
 	});
     socket.on('disconnect', function(){
