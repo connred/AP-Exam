@@ -1,74 +1,79 @@
 var socket = io.connect('http://130.211.216.160');
 var primaryLog = {
-    Primary : [],
-    Alternate : []
+    Primary: []
+    , Alternate: []
 };
 $(document).ready(function () {
-    
-            function logMessages(username, data, rooms, current_room) {
-            var messageData = {
-                'user' : username,
-                'messageContent' : data,
-                'current_room' : current_room
+    function logMessages(username, data, rooms, current_room) {
+        var messageData = {
+            'user': username
+            , 'messageContent': data
+            , 'current_room': current_room
+        };
+        primaryLog[current_room].push(messageData);
+        return primaryLog;
+    }
+    socket.on('connect', function () {});
+    socket.on('updatechat', function (username, data, rooms, current_room) {
+        $('#conversation').append('<b>' + username + ':</b> ' + data + '<br>');
+        logMessages();
+    });
+    socket.on('updaterooms', function (rooms, current_room) {
+        $('#rooms').empty();
+        $.each(rooms, function (key, value) {
+            if (value == current_room) {
+                $('#rooms').append('<div>' + value + '</div>');
             }
-            primaryLog[current_room].push(messageData);
+            else {
+                $('#rooms').append('<div><a href="#" onclick="switchRoom(\'' + value + '\')">' + value + '</a></div>');
+            }
         });
-    
-    socket.on('connect', function(){
-	});
-
-	socket.on('updatechat', function (username, data, rooms, current_room) {
-		$('#conversation').append('<b>'+username + ':</b> ' + data + '<br>');
-
-	});
-
-	socket.on('updaterooms', function(rooms, current_room) {
-		$('#rooms').empty();
-		$.each(rooms, function(key, value) {
-			if(value == current_room){
-				$('#rooms').append('<div>' + value + '</div>');
-			}
-			else {
-				$('#rooms').append('<div><a href="#" onclick="switchRoom(\''+value+'\')">' + value + '</a></div>');
-			}
-		});
-	});
+    });
 });
-function switchRoom(room){
-		socket.emit('switchRoom', room);
-	}
-	$(function(){
-		$('#datasend').click( function() {
-			var message = $('#data').val();
-			$('#data').val('');
-			socket.emit('sendchat', message);
-		});
-		$('#data').keypress(function(e) {
-			if(e.which == 13) {
-				$(this).blur();
-				$('#datasend').focus().click();
-			}
-		});
-	});
+
+function switchRoom(room) {
+    socket.emit('switchRoom', room);
+    for (var i = 0; i < primaryLog[room].length; i++) {
+            if (data[i].user && data[i].messageContent) {
+                $('#conversation').append('<b>' + user + ':</b> ' + messageContent + '<br>');
+            }
+    }
+}
+
+$(function () {
+    $('#datasend').click(function () {
+        var message = $('#data').val();
+        $('#data').val('');
+        socket.emit('sendchat', message);
+    });
+    $('#data').keypress(function (e) {
+        if (e.which == 13) {
+            $(this).blur();
+            $('#datasend').focus().click();
+        }
+    });
+});
+
 function route(url) {
-    return 'http://130.211.216.160' + url
+    return 'http://130.211.216.160' + url;
 }
 ///
 var username;
 var profile;
 var authResponse;
+
 function onSignIn(googleUser) {
     profile = googleUser.getBasicProfile();
     authResponse = googleUser.getAuthResponse();
     var login = {
-            'id': profile.getId()
-            , 'name': profile.getName()
-            , 'givenName': profile.getGivenName()
-            , 'familyName': profile.getFamilyName()
-            , 'imageUrl': profile.getImageUrl()
-            , 'email': profile.getEmail()
-            , 'hostedDomain': googleUser.getHostedDomain()
-        }
+        'id': profile.getId()
+        , 'name': profile.getName()
+        , 'givenName': profile.getGivenName()
+        , 'familyName': profile.getFamilyName()
+        , 'imageUrl': profile.getImageUrl()
+        , 'email': profile.getEmail()
+        , 'hostedDomain': googleUser.getHostedDomain()
+    };
     $('.g-signin2').hide();
     $('.signout').prop('hidden', false);
     $('#conversation').prop('disabled', false);
