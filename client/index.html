@@ -14,13 +14,13 @@
         <div id="user">
             <div class="g-signin2" data-onsuccess="onSignIn"></div> <a class="signout" href="#" onclick="signOut();" hidden>Sign out</a></div>
         <br>
-        <div style="float:left;width:100px;border-right:1px solid black;height:300px;padding:10px;overflow:scroll-y;"> <b>ROOMS</b>
+        <div style="float:left;width:110;border-right:2px solid black;height:300px;padding:12px;overflow:scroll-y;"> <b>ROOMS</b>
             <div id="rooms"></div>
         </div>
         <div style="float:left;width:300px;height:250px;overflow:scroll-y;padding:10px;">
             <div id="conversation" disabled></div>
-            <input id="data" style="width:200px;" />
-            <input type="button" id="datasend" value="send" /> </div>
+            <input id="data" style="width:200px;" disabled/>
+            <input type="button" id="datasend" value="send" disabled/> </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>

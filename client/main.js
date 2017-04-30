@@ -1,16 +1,6 @@
 var socket = io.connect('http://130.211.216.160');
 var messageData;
 $(document).ready(function () {
-    function logMessages(username, data) {
-        messageData = {
-            'user': username
-            , 'messageContent': data.message
-            , 'room': data.room
-        };
-        //primaryLog[messageData.room].push(messageData);
-        //return primaryLog;
-        return messageData;
-    }
     socket.on('addMessages', function (data) {
         console.log(data.currentRoom);
         console.log(data);
@@ -27,7 +17,7 @@ $(document).ready(function () {
         }
     })
     socket.on('connect', function () {
-        $('#conversation').append('<b>' + 'Welcome' + ':</b> ' + '<br>');
+        $('#conversation').append('<b>' + 'Welcome' + ':</b> ' + 'Please Sign In to google to chat' + '<br>');
         var join = "Primary"
         socket.emit('getMessages', join)
     });
@@ -93,6 +83,8 @@ function onSignIn(googleUser) {
     };
     $('.g-signin2').hide();
     $('.signout').prop('hidden', false);
+    $('#conversation').prop('hidden', false);
+    $('#data').prop('disabled', false);
     $('#conversation').prop('disabled', false);
     socket.emit('adduser', login);
 }

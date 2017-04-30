@@ -12,11 +12,11 @@
     display: none;
 }
 html {
-    background-color: powderblue;
+    background-color: lightsteelblue;
 }
 h1 {
     font-family: impact;
-    font-size: 36px;
+    font-size: 50px;
     text-shadow: 6px 2px 5px #333333;
     text-align: center
 }
