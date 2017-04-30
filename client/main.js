@@ -40,7 +40,6 @@ $(document).ready(function () {
 function switchRoom(room) {
     socket.emit('switchRoom', room);
     $('#conversation').html('');
-    $('#conversation').append('<b>' + 'You have connected to' + ':</b> ' + room + '<br>');
     socket.emit('getMessages', room);
 }
 $(function () {
@@ -85,7 +84,7 @@ function onSignIn(googleUser) {
     $('.signout').prop('hidden', false);
     $('#conversation').prop('hidden', false);
     $('#data').prop('disabled', false);
-    $('#conversation').prop('disabled', false);
+    $('#datasend').prop('disabled', false);
     socket.emit('adduser', login);
 }
 
