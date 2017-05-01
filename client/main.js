@@ -39,18 +39,15 @@ $(document).ready(function () {
             }
         });
     });
-    $('#equals').click(function () {
-        calc();
-    });
 });
 
 function mathBot(botName) {
     $('#conversation').append('<b> MATHBOT:' + ' Hello' + ':</b> ' + botName + '<br>');
     $('#conversation').append('<div id="math"/><div>');
     $('#math').append('<b>' + 'Enter 1st number here' + ':</b> ' + '<input id="numOne"/>' + '<br>');
-    $('#math').append('<b>' + 'Choose Operation(+ or - or / or *)' + ':</b> ' + '<input id="operation" value="+ or - or / or *"/>' + '<br>');
+    $('#math').append('<b>' + 'Choose Operation' + ':</b> ' + '<input id="operation" placeholder="+ or - or / or *"/>' + '<br>');
     $('#math').append('<b>' + 'Enter 2nd number here' + ':</b> ' + '<input id="numTwo"/>' + '<br>');
-    $('#math').append('<b>' + '<input type="button" id="equals" value="Get Answer"/>' + '<br>');
+    $('#math').append('<b>' + '<input type="button" id="equals" value="Get Answer" onclick="calc()"/>' + '<br>');
 }
 
 function calc() {
