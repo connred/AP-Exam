@@ -20,8 +20,12 @@ $(document).ready(function () {
         var botName = data;
         mathBot(botName);
     });
+    socket.on('clearRoom', function () {
+        $('#conversation').html('');
+    });
     socket.on('connect', function () {
-        $('#conversation').append('<b>' + 'Welcome' + ':</b> ' + 'Please Sign In to google to chat' + '<br>');
+        $('#conversation').append('<b>' + 'Welcome' + ':</b> ' + 'Please sign in to google' + '<br>');
+        $('#conversation').append('<b>' + 'CMDS' + ':</b> ' + 'Use !bot for math bot and !clear to clear chat room' + '<br>');
         var join = "Primary"
         socket.emit('getMessages', join)
     });

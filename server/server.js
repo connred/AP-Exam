@@ -16,9 +16,9 @@ app.use('/', express.static(webroot));
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-
 app.use(allowCrossDomain);
 app.use(authorize);
+
 function allowCrossDomain(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE');
@@ -68,12 +68,10 @@ function authorize(req, res, next) {
         res.end();
     }
 }
-
 var server = http.listen(80, function () {
     console.log('hosting from ' + webroot);
     console.log('server listening on http://localhost/');
 });
-
 var primaryLog = {
     Primary: []
     , Alternate: []
@@ -81,12 +79,11 @@ var primaryLog = {
 };
 var usernames = {};
 var rooms = ['Primary', 'Alternate'];
-
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
     var clientIp = socket.request.connection.remoteAddress;
     console.log('socket connected from ' + clientIp);
-    
+
     function logMessages(username, data) {
         messageData = {
             'user': username
@@ -97,7 +94,6 @@ io.sockets.on('connection', function (socket) {
         return primaryLog;
         return messageData;
     }
-    
     socket.on('adduser', function (login) {
         socket.user = login.name;
         console.log('socket.user= ' + socket.user);
@@ -116,11 +112,18 @@ io.sockets.on('connection', function (socket) {
     socket.on('sendchat', function (data) {
         data.room = socket.room
         username = socket.user
-        logMessages(username, data);
-        if (data.message == "!mathbot" || data.message == "!bot"){
-            socket.emit('activatebot', username);
+        if (data.message == "!clear" || data.message == "!bot") {
+            if (data.message == "!bot") {
+                socket.emit('activatebot', username);
+            }
+            if (data.message == "!clear") {
+                socket.emit('clearRoom');
+            }
         }
-        io.sockets.in(socket.room).emit('updatechat', socket.user, data);
+        else {
+            logMessages(username, data);
+            io.sockets.in(socket.room).emit('updatechat', socket.user, data);
+        }
     });
     socket.on('getMessages', function (data) {
         console.log(data);
