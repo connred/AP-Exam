@@ -47,7 +47,7 @@ function mathBot(botName) {
     $('#math').append('<b>' + 'Enter 1st number here' + ':</b> ' + '<input id="numOne"/>' + '<br>');
     $('#math').append('<b>' + 'Choose Operation' + ':</b> ' + '<input id="operation" placeholder="+ or - or / or *"/>' + '<br>');
     $('#math').append('<b>' + 'Enter 2nd number here' + ':</b> ' + '<input id="numTwo"/>' + '<br>');
-    $('#math').append('<b>' + '<input type="button" id="equals" value="Get Answer" onclick="calc()"/>' + '<br>');
+    $('#math').append('<b>' + '<input type="button" id="equals" value="Get Answer" onclick="calc();"/>' + '<br>');
 }
 
 function calc() {
