@@ -47,15 +47,19 @@ function mathBot(botName) {
     $('#math').append('<b>' + 'Enter 1st number here' + ':</b> ' + '<input id="numOne"/>' + '<br>');
     $('#math').append('<b>' + 'Choose Operation' + ':</b> ' + '<input id="operation" placeholder="+ or - or / or *"/>' + '<br>');
     $('#math').append('<b>' + 'Enter 2nd number here' + ':</b> ' + '<input id="numTwo"/>' + '<br>');
-    $('#math').append('<b>' + '<input type="button" id="equals" value="Get Answer" onclick="calc();"/>' + '<br>');
+    $('#math').append('<button id="equals" onclick="calc();">Get Answer</button>');
 }
+$('#equals').click(function () {
+    console.log('a calc button was clicked');
+    calc();
+});
 
 function calc() {
     var numOne = $('#numOne').val();
     var numTwo = $('#numTwo').val();
     var operation = $('#operation').val();
     if (operation == "+") {
-        var answer = numOne + numTwo;
+        var answer = numOne ++ numTwo;
         return answer;
     }
     if (operation == "-") {
