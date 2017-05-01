@@ -39,7 +39,29 @@ $(document).ready(function () {
             }
         });
     });
-    
+    function calc() {
+        var numOne = $('#numOne').val();
+        var numTwo = $('#numTwo').val();
+        var operation = $('#operation').val();
+        if (operation == "+") {
+            var answer = numOne + numTwo;
+            return answer;
+        }
+        if (operation == "-") {
+            var answer = numOne - numTwo;
+            return answer;
+        }
+        if (operation == "/") {
+            var answer = numOne / numTwo;
+            return answer;
+        }
+        if (operation == "*") {
+            var answer = numOne * numTwo;
+            return answer;
+        }
+        $('#math').html('');
+        $('#conversation').append('<b> MATHBOT:' + ' The answer is' + ':</b> ' + answer + '<br>');
+    }
 });
 
 function mathBot(botName) {
@@ -50,33 +72,7 @@ function mathBot(botName) {
     $('#math').append('<b>' + 'Enter 2nd number here' + ':</b> ' + '<input id="numTwo"/>' + '<br>');
     $('#math').append('<b><a href="#" onclick="calc()">' + 'Answer' + '</a></b>');
 }
-$('#equals').click(function () {
-    console.log('a calc button was clicked');
-    calc();
-});
-function calc() {
-    var numOne = $('#numOne').val();
-    var numTwo = $('#numTwo').val();
-    var operation = $('#operation').val();
-    if (operation == "+") {
-        var answer = numOne + numTwo;
-        return answer;
-    }
-    if (operation == "-") {
-        var answer = numOne - numTwo;
-        return answer;
-    }
-    if (operation == "/") {
-        var answer = numOne / numTwo;
-        return answer;
-    }
-    if (operation == "*") {
-        var answer = numOne * numTwo;
-        return answer;
-    }
-    $('#math').html('');
-    $('#conversation').append('<b> MATHBOT:' + ' The answer is' + ':</b> ' + answer + '<br>');
-}
+
 
 function switchRoom(room) {
     socket.emit('switchRoom', room);
