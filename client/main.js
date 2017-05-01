@@ -39,29 +39,6 @@ $(document).ready(function () {
             }
         });
     });
-    function calc() {
-        var numOne = $('#numOne').val();
-        var numTwo = $('#numTwo').val();
-        var operation = $('#operation').val();
-        if (operation == "+") {
-            var answer = numOne + numTwo;
-            return answer;
-        }
-        if (operation == "-") {
-            var answer = numOne - numTwo;
-            return answer;
-        }
-        if (operation == "/") {
-            var answer = numOne / numTwo;
-            return answer;
-        }
-        if (operation == "*") {
-            var answer = numOne * numTwo;
-            return answer;
-        }
-        $('#math').html('');
-        $('#conversation').append('<b> MATHBOT:' + ' The answer is' + ':</b> ' + answer + '<br>');
-    }
 });
 
 function mathBot(botName) {
@@ -73,6 +50,31 @@ function mathBot(botName) {
     $('#math').append('<b><a href="#" onclick="calc()">' + 'Answer' + '</a></b>');
 }
 
+function calc() {
+    var numOne = $('#numOne').val();
+    var numTwo = $('#numTwo').val();
+    var operation = $('#operation').val();
+    if (operation == "+") {
+        var answer = numOne + numTwo;
+        $('#math').html('');
+        $('#conversation').append('<b> MATHBOT:' + ' The answer is' + ':</b> ' + answer + '<br>');
+    }
+    if (operation == "-") {
+        var answer = numOne - numTwo;
+        $('#math').html('');
+        $('#conversation').append('<b> MATHBOT:' + ' The answer is' + ':</b> ' + answer + '<br>');
+    }
+    if (operation == "/") {
+        var answer = numOne / numTwo;
+        $('#math').html('');
+        $('#conversation').append('<b> MATHBOT:' + ' The answer is' + ':</b> ' + answer + '<br>');
+    }
+    if (operation == "*") {
+        var answer = numOne * numTwo;
+        $('#math').html('');
+        $('#conversation').append('<b> MATHBOT:' + ' The answer is' + ':</b> ' + answer + '<br>');
+    }
+}
 
 function switchRoom(room) {
     socket.emit('switchRoom', room);
