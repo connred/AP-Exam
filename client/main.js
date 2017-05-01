@@ -39,6 +39,7 @@ $(document).ready(function () {
             }
         });
     });
+    
 });
 
 function mathBot(botName) {
@@ -53,13 +54,12 @@ $('#equals').click(function () {
     console.log('a calc button was clicked');
     calc();
 });
-
 function calc() {
     var numOne = $('#numOne').val();
     var numTwo = $('#numTwo').val();
     var operation = $('#operation').val();
     if (operation == "+") {
-        var answer = numOne ++ numTwo;
+        var answer = numOne + numTwo;
         return answer;
     }
     if (operation == "-") {
