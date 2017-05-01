@@ -117,6 +117,9 @@ io.sockets.on('connection', function (socket) {
         data.room = socket.room
         username = socket.user
         logMessages(username, data);
+        if (data.message == "!mathbot" || data.message == "!bot"){
+            socket.emit('activatebot', username);
+        }
         io.sockets.in(socket.room).emit('updatechat', socket.user, data);
     });
     socket.on('getMessages', function (data) {

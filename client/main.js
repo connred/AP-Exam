@@ -16,6 +16,10 @@ $(document).ready(function () {
             }
         }
     })
+    socket.on('activatebot', function (data) {
+        var botName = data;
+        mathBot(botName);
+    });
     socket.on('connect', function () {
         $('#conversation').append('<b>' + 'Welcome' + ':</b> ' + 'Please Sign In to google to chat' + '<br>');
         var join = "Primary"
@@ -35,7 +39,43 @@ $(document).ready(function () {
             }
         });
     });
+    $('#equals').click(function () {
+        calc();
+    });
 });
+
+function mathBot(botName) {
+    $('#conversation').append('<b> MATHBOT:' + ' Hello' + ':</b> ' + botName + '<br>');
+    $('#conversation').append('<div id="math"/><div>');
+    $('#math').append('<b>' + 'Enter 1st number here' + ':</b> ' + '<input id="numOne"/>' + '<br>');
+    $('#math').append('<b>' + 'Choose Operation(+ or - or / or *)' + ':</b> ' + '<input id="operation" value="+ or - or / or *"/>' + '<br>');
+    $('#math').append('<b>' + 'Enter 2nd number here' + ':</b> ' + '<input id="numTwo"/>' + '<br>');
+    $('#math').append('<b>' + '<input type="button" id="equals" value="Get Answer"/>' + '<br>');
+}
+
+function calc() {
+    var numOne = $('#numOne').val();
+    var numTwo = $('#numTwo').val();
+    var operation = $('#operation').val();
+    if (operation == "+") {
+        var answer = numOne + numTwo;
+        return answer;
+    }
+    if (operation == "-") {
+        var answer = numOne - numTwo;
+        return answer;
+    }
+    if (operation == "/") {
+        var answer = numOne / numTwo;
+        return answer;
+    }
+    if (operation == "*") {
+        var answer = numOne * numTwo;
+        return answer;
+    }
+    $('#math').html('');
+    $('#conversation').append('<b> MATHBOT:' + ' The answer is' + ':</b> ' + answer + '<br>');
+}
 
 function switchRoom(room) {
     socket.emit('switchRoom', room);
